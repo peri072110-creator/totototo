@@ -1,0 +1,620 @@
+/* App.css — тёмная тема в духе Apple Reminders */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap");
+
+:root {
+  --bg: #0d0d0f;
+  --sidebar-bg: #17171a;
+  --surface: #232326;
+  --surface-alt: #2a2a2e;
+  --ink: #f2f2f4;
+  --muted: #8e8e93;
+  --line: #313136;
+  --accent: #0a84ff;
+  --accent-soft: rgba(10, 132, 255, 0.16);
+  --red: #ff453a;
+  --orange: #ff9f0a;
+  --green: #30d158;
+  --grey: #8e8e93;
+
+  --low: #4e9f6b;
+  --medium: #ff9f0a;
+  --high: #ff453a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  font-family: "Inter", sans-serif;
+  color: var(--ink);
+}
+
+/* --- Layout --- */
+.reminders-app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* --- Sidebar --- */
+.rem-sidebar {
+  width: 270px;
+  flex-shrink: 0;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--line);
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.rem-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 9px 12px;
+}
+
+.rem-search-icon {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.rem-search input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--ink);
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+}
+
+.rem-search input::placeholder {
+  color: var(--muted);
+}
+
+.rem-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.rem-stat {
+  background: var(--surface);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  cursor: pointer;
+  color: var(--ink);
+  text-align: left;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.rem-stat:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: var(--surface-alt);
+}
+
+.rem-stat.active {
+  border-color: var(--accent);
+}
+
+.rem-stat:disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.rem-stat-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.rem-stat-num {
+  font-size: 22px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.rem-stat-label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.rem-stat-all .rem-stat-icon { color: var(--grey); }
+.rem-stat-active .rem-stat-icon { color: var(--accent); }
+.rem-stat-high .rem-stat-icon { color: var(--orange); }
+.rem-stat-completed .rem-stat-icon { color: var(--green); }
+
+.rem-mylists-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 0 0 8px 4px;
+}
+
+.rem-list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.rem-list-item.active {
+  background: var(--surface);
+}
+
+.rem-list-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--red);
+  flex-shrink: 0;
+}
+
+.rem-list-count {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* --- Main --- */
+.rem-main {
+  flex: 1;
+  padding: 40px 44px 60px;
+  max-width: 880px;
+}
+
+.rem-main-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 26px;
+}
+
+.rem-main-header h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: -0.01em;
+}
+
+.rem-main-sub {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.rem-count-big {
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--red);
+}
+
+/* --- Форма добавления --- */
+.add-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.add-form input[type="text"] {
+  flex: 1;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  background: var(--surface);
+  color: var(--ink);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-form input[type="text"]::placeholder {
+  color: var(--muted);
+}
+
+.add-form input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.add-form select {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0 10px;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.add-form select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.add-form button {
+  border: none;
+  border-radius: 10px;
+  padding: 0 22px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.add-form button:hover:not(:disabled) {
+  background: #0a6ed1;
+}
+
+.add-form button:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.add-form button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* --- Фильтры --- */
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-family: "JetBrains Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.filters-count {
+  margin-left: auto;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* --- Список задач --- */
+.todo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.todo-item {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--muted);
+  border-radius: 12px;
+  padding: 14px 14px 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.28s ease,
+    max-height 0.28s ease, margin 0.28s ease, padding 0.28s ease;
+  max-height: 100px;
+  overflow: hidden;
+  animation: itemIn 0.25s ease;
+}
+
+@keyframes itemIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.todo-item:hover {
+  transform: translateX(2px);
+  box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.6);
+  border-color: #45454b;
+}
+
+/* анимация удаления */
+.todo-item.removing {
+  opacity: 0;
+  transform: scale(0.96);
+  max-height: 0;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-width: 0;
+}
+
+.todo-item[data-priority="low"] { border-left-color: var(--low); }
+.todo-item[data-priority="medium"] { border-left-color: var(--medium); }
+.todo-item[data-priority="high"] { border-left-color: var(--high); }
+
+.todo-check {
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line);
+  background: transparent;
+  flex-shrink: 0;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+}
+
+.todo-check:hover {
+  border-color: var(--accent);
+  transform: scale(1.08);
+}
+
+.todo-item[data-completed="true"] .todo-check {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.todo-item[data-completed="true"] .todo-check::after {
+  content: "✓";
+  color: #fff;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.todo-title {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: text;
+  word-break: break-word;
+}
+
+.todo-item[data-completed="true"] .todo-title {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+.todo-priority-tag {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 20px;
+  color: #06110b;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.todo-priority-tag[data-priority="low"] { background: var(--low); color: #06170e; }
+.todo-priority-tag[data-priority="medium"] { background: var(--medium); color: #241300; }
+.todo-priority-tag[data-priority="high"] { background: var(--high); color: #260503; }
+
+/* --- Иконки-кнопки (edit/delete/save/cancel) --- */
+.icon-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 14px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.icon-btn:hover {
+  background: var(--surface-alt);
+  transform: scale(1.05);
+}
+
+.icon-btn.edit:hover { color: var(--accent); }
+.icon-btn.delete:hover { color: var(--high); background: rgba(255, 69, 58, 0.14); }
+.icon-btn.save { color: var(--green); }
+.icon-btn.save:hover { background: rgba(48, 209, 88, 0.14); }
+.icon-btn.cancel:hover { color: var(--high); }
+
+/* --- Строка инлайн-редактирования --- */
+.todo-edit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.todo-edit-row input[type="text"] {
+  flex: 1;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+.todo-edit-row input[type="text"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.todo-edit-row select {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 7px 8px;
+  font-size: 12px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+/* --- Пустое состояние --- */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--muted);
+  font-size: 14px;
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  list-style: none;
+}
+
+/* --- Состояния загрузки/ошибки --- */
+.app-state {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  color: var(--muted);
+  padding: 60px 0;
+  text-align: center;
+}
+
+.app-state.error {
+  color: var(--high);
+}
+
+.app-state::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
+  border: 2px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+}
+
+.app-state.error::before {
+  display: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- Адаптив --- */
+@media (max-width: 860px) {
+  .reminders-app {
+    flex-direction: column;
+  }
+
+  .rem-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .rem-search {
+    flex: 1 1 100%;
+  }
+
+  .rem-mylists {
+    display: none;
+  }
+
+  .rem-main {
+    padding: 28px 20px 50px;
+    max-width: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .rem-main-header h1 {
+    font-size: 27px;
+  }
+
+  .add-form {
+    flex-wrap: wrap;
+  }
+
+  .add-form input[type="text"] {
+    flex: 1 1 100%;
+  }
+
+  .add-form select,
+  .add-form button {
+    flex: 1;
+  }
+
+  .todo-item {
+    flex-wrap: wrap;
+    padding: 12px 12px 12px 14px;
+  }
+
+  .todo-title {
+    flex-basis: 100%;
+    order: 1;
+  }
+
+  .todo-priority-tag {
+    order: 2;
+  }
+
+  .todo-edit-row {
+    flex-wrap: wrap;
+  }
+
+  .todo-edit-row input[type="text"] {
+    flex-basis: 100%;
+  }
+
+  .filters-count {
+    margin-left: 0;
+    flex-basis: 100%;
+    text-align: right;
+  }
+}
