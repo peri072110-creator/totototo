@@ -22,8 +22,7 @@ const useApi = (baseUrl) => {
       }
 
       const result = await response.json();
-      // data обновляем только для get-запросов (список),
-      // чтобы post/put/delete не затирали список одним объектом
+
       if (updatesList) setData(result);
       return result;
     } catch (err) {
@@ -42,8 +41,7 @@ const useApi = (baseUrl) => {
   const put = (endpoint, newChushpan) =>
     request(endpoint, { method: "PUT", body: JSON.stringify(newChushpan) });
 
-  const deleteChushpan = (endpoint) =>
-    request(endpoint, { method: "DELETE" });
+  const deleteChushpan = (endpoint) => request(endpoint, { method: "DELETE" });
 
   return {
     error,

@@ -12,7 +12,7 @@ const App = () => {
 
   const [newTitle, setNewTitle] = useState("");
   const [newPriority, setNewPriority] = useState("low");
-  const [filter, setFilter] = useState("all"); // all | active | completed
+  const [filter, setFilter] = useState("all");  
   const [search, setSearch] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
@@ -22,7 +22,6 @@ const App = () => {
 
   useEffect(() => {
     get("chushpan");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const refresh = () => get("chushpan");
